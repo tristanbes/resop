@@ -14,8 +14,8 @@ class SkillSetDomain
     {
         // TODO Use objects instead of arrays
         $this->availableSkillSets = $availableSkillSets;
-        $this->importantSkillsLimit = (int) $importantSkillsLimit;
-        $this->importantSkillsToDisplayLimit = (int) $importantSkillsToDisplayLimit;
+        $this->importantSkillsLimit = $importantSkillsLimit;
+        $this->importantSkillsToDisplayLimit = $importantSkillsToDisplayLimit;
     }
 
     /**
