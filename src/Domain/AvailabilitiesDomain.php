@@ -11,7 +11,6 @@ use Doctrine\ORM\EntityManagerInterface;
 final class AvailabilitiesDomain
 {
     public const SLOT_INTERVAL = 'PT2H';
-
     public array $availabilityDomains = [];
 
     /**
@@ -32,9 +31,9 @@ final class AvailabilitiesDomain
         $availabilityDomains = [];
         foreach ($period as $date) {
             $availabilityEntity = null;
-            foreach ($availabilities as $k => $availibility) {
-                if ($availibility->getStartTime()->format('Y-m-d H:i') === $date->format('Y-m-d H:i')) {
-                    $availabilityEntity = $availibility;
+            foreach ($availabilities as $k => $availability) {
+                if ($availability->getStartTime()->format('Y-m-d H:i') === $date->format('Y-m-d H:i')) {
+                    $availabilityEntity = $availability;
                     unset($availabilities[$k]);
 
                     break;
