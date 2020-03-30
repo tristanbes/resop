@@ -56,11 +56,11 @@ final class AvailabilitiesDomain
         $this->availabilityDomains = $availabilityDomains;
     }
 
-    public function compute(EntityManagerInterface $em, string $avaibilityClass, object $object): void
+    public function compute(EntityManagerInterface $em, string $availabilityClass, object $object): void
     {
         foreach ($this->availabilityDomains as $availabilityDomain) {
             if ($availabilityDomain->tick && null === $availabilityDomain->availability) {
-                $em->persist(new $avaibilityClass(
+                $em->persist(new $availabilityClass(
                     null,
                     $object,
                     $availabilityDomain->date,
