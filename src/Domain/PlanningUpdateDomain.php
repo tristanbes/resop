@@ -19,25 +19,26 @@ use App\Repository\UserAvailabilityRepository;
 use App\Repository\UserRepository;
 use Doctrine\Persistence\ObjectManager;
 
-// Payload example
-// {
-//     "users": {
-//         "1": [
-//             ["2020-03-20 12:00", "2020-03-20 14:00"]
-//         ],
-//         "2": [
-//             ["2020-03-21 12:00", "2020-03-20 14:00"]
-//         ]
-//     },
-//     "commissionableAssets": {
-//         "1": [
-//             ["2020-03-24 12:00", "2020-03-20 14:00"]
-//         ],
-//         "2": [
-//             ["2020-03-22 12:00", "2020-03-20 14:00"]
-//         ]
-//     }
-// }
+/** Payload example
+ * {
+ *     "users": {
+ *         "1": [
+ *             ["2020-03-20 12:00", "2020-03-20 14:00"]
+ *         ],
+ *         "2": [
+ *             ["2020-03-21 12:00", "2020-03-20 14:00"]
+ *         ]
+ *     },
+ *     "commissionableAssets": {
+ *         "1": [
+ *             ["2020-03-24 12:00", "2020-03-20 14:00"]
+ *         ],
+ *         "2": [
+ *             ["2020-03-22 12:00", "2020-03-20 14:00"]
+ *         ]
+ *     }
+ * }
+ */
 class PlanningUpdateDomain
 {
     public const ACTION_BOOK = 'book'; // blue button
@@ -122,7 +123,7 @@ class PlanningUpdateDomain
                 throw new \InvalidArgumentException('Invalid entity');
             }
 
-            /** @var AvailabilityInterface */
+            /* * @var AvailabilityInterface */
             $currentEntity = end($search);
 
             foreach ($schedules as $schedule) {
@@ -193,16 +194,16 @@ class PlanningUpdateDomain
 
     protected function validateAction(): void
     {
-        if (!in_array($this->action, self::ACTIONS)) {
-            throw new \InvalidArgumentException('Invalid action : '.$this->action);
+        if (!\in_array($this->action, self::ACTIONS)) {
+            throw new \InvalidArgumentException(sprintf('Invalid action : %s', $this->action));
         }
     }
 
     protected function validatePayload(): void
     {
         $keys = array_keys($this->payload);
-        for ($i = 0; $i < count($keys); ++$i) {
-            if (!in_array($keys[$i], self::PAYLOAD_VALID_KEYS)) {
+        for ($i = 0; $i < \count($keys); ++$i) {
+            if (!\in_array($keys[$i], self::PAYLOAD_VALID_KEYS)) {
                 throw new \InvalidArgumentException('Invalid key : '.$keys[$i]);
             }
         }

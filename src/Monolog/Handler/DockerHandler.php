@@ -65,7 +65,7 @@ class DockerHandler extends AbstractProcessingHandler
             return;
         }
 
-        if (!is_string($record['formatted'])) {
+        if (!\is_string($record['formatted'])) {
             // TODO Create a custom formatted doing NormalizerFormatter::format and JsonFormatter::format
             $record['formatted'] = $this->logsFormater->format($record['formatted']);
         }

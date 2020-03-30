@@ -99,7 +99,7 @@ abstract class PlanningUtils
         /** @var User[] $item */
         foreach ($usersAvailabilities as $item) {
             foreach ($importantSkills as $skill) {
-                if (in_array($skill, $item['entity']->skillSet, true)) {
+                if (\in_array($skill, $item['entity']->skillSet, true)) {
                     $result[$skill][] = $item;
                     continue 2;
                 }
