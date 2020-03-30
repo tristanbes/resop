@@ -129,11 +129,11 @@ class PlanningUpdateDomain
             foreach ($schedules as $schedule) {
                 list($scheduleStart, $scheduleEnd) = $schedule;
                 $searchAvailabilities = array_filter($availabilities, function (AvailabilityInterface $availability) use ($entityId, $scheduleStart, $scheduleEnd) {
-                    return $availability->getOwner()->getId() == $entityId && $availability->getStartTime() == new \DateTimeImmutable($scheduleStart) && $availability->getEndTime() == new \DateTimeImmutable($scheduleEnd);
+                    return $availability->getOwner()->getId() === (int) $entityId && $availability->getStartTime() === new \DateTimeImmutable($scheduleStart) && $availability->getEndTime() === new \DateTimeImmutable($scheduleEnd);
                 });
                 $availability = end($searchAvailabilities);
 
-                if (self::ACTION_DELETE == $this->action) {
+                if (self::ACTION_DELETE === $this->action) {
                     if (!$availability) {
                         continue;
                     }
@@ -148,13 +148,13 @@ class PlanningUpdateDomain
                     switch ($status) {
                         case AvailabilityInterface::STATUS_BOOKED:
                             $availability->book($this->planningAgent);
-                        break;
+                            break;
                         case AvailabilityInterface::STATUS_AVAILABLE:
                             $availability->declareAvailable();
-                        break;
+                            break;
                         case AvailabilityInterface::STATUS_LOCKED:
                             $availability->lock();
-                        break;
+                            break;
                     }
                 }
             }
@@ -204,7 +204,7 @@ class PlanningUpdateDomain
         $keys = array_keys($this->payload);
         for ($i = 0; $i < \count($keys); ++$i) {
             if (!\in_array($keys[$i], self::PAYLOAD_VALID_KEYS)) {
-                throw new \InvalidArgumentException('Invalid key : '.$keys[$i]);
+                throw new \InvalidArgumentException(sprintf('Invalid key : %s', $keys[$i]));
             }
         }
 
@@ -214,13 +214,13 @@ class PlanningUpdateDomain
                     try {
                         $start = new \DateTimeImmutable($start);
                     } catch (\Exception $e) {
-                        throw new \InvalidArgumentException('Invalid date : '.$start);
+                        throw new \InvalidArgumentException(sprintf('Invalid date : %s', $start));
                     }
 
                     try {
                         $end = new \DateTimeImmutable($end);
                     } catch (\Exception $e) {
-                        throw new \InvalidArgumentException('Invalid date : '.$end);
+                        throw new \InvalidArgumentException(sprintf('Invalid date : %s', $end));
                     }
 
                     if ($end <= $start) {
@@ -233,17 +233,11 @@ class PlanningUpdateDomain
 
     private function getOwnerRepository(string $class): ?AvailabilitableRepositoryInterface
     {
-        return [
-                User::class => $this->userRepository,
-                CommissionableAsset::class => $this->assetRepository,
-            ][$class] ?? null;
+        return [User::class => $this->userRepository, CommissionableAsset::class => $this->assetRepository][$class] ?? null;
     }
 
     private function getAvailabilityRepository(string $class): ?AvailabilityRepositoryInterface
     {
-        return [
-                User::class => $this->userAvailabilityRepository,
-                CommissionableAsset::class => $this->assetAvailabilityRepository,
-            ][$class] ?? null;
+        return [User::class => $this->userAvailabilityRepository, CommissionableAsset::class => $this->assetAvailabilityRepository][$class] ?? null;
     }
 }
