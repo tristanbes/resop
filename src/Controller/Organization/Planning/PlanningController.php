@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Controller\Organization\Planning;
 
+use App\Domain\AbstractPlanningUtils;
 use App\Domain\AvailabilitiesDomain;
 use App\Domain\DatePeriodCalculator;
-use App\Domain\AbstractPlanningUtils;
 use App\Domain\SkillSetDomain;
 use App\Entity\CommissionableAsset;
 use App\Repository\CommissionableAssetAvailabilityRepository;
