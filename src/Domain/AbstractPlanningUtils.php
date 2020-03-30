@@ -13,7 +13,7 @@ use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 
-abstract class PlanningUtils
+abstract class AbstractPlanningUtils
 {
     public static function getFormFromRequest(FormFactoryInterface $formFactory, Request $request): FormInterface
     {
