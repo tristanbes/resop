@@ -30,7 +30,7 @@ You can join the [ResOp Discord server](https://discord.gg/ZyzeSq5) if you want 
 
 If you want to contribute, you can easily start with any [`good first issue` tagged issue](https://github.com/crf-devs/resop/labels/good%20first%20issue)!
 
-## Install
+## Installation
 
 ### Requirements
 
